@@ -1,0 +1,960 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Dynamica Electrical | Melbourne Electricians</title>
+  <link href="https://fonts.googleapis.com/css2?family=Josefin+Sans:wght@100;200;300;400;600;700&family=Barlow:wght@300;400;500;600&display=swap" rel="stylesheet"/>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --orange: #E8471A;
+      --black: #111111;
+      --white: #FFFFFF;
+      --light: #F7F5F2;
+      --text: #1A1A1A;
+      --muted: #6B6660;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'Barlow', sans-serif;
+      background: var(--white);
+      color: var(--text);
+      overflow-x: hidden;
+    }
+
+    /* ── NAV ── */
+    nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 100;
+      background: rgba(255,255,255,0.96);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid rgba(0,0,0,0.08);
+      padding: 0 5vw;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      height: 72px;
+    }
+
+    .nav-logo-text {
+      font-family: 'Josefin Sans', sans-serif;
+      font-size: 18px;
+      font-weight: 700;
+      letter-spacing: 0.12em;
+      color: var(--black);
+    }
+    .nav-logo-text span { color: var(--orange); }
+
+    .nav-logo img { height: 44px; width: auto; }
+
+    .nav-links { display: flex; gap: 36px; list-style: none; }
+
+    .nav-links a {
+      text-decoration: none;
+      font-family: 'Josefin Sans', sans-serif;
+      font-size: 12px;
+      font-weight: 600;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--text);
+      transition: color 0.2s;
+    }
+    .nav-links a:hover { color: var(--orange); }
+
+    .nav-cta {
+      background: var(--orange);
+      color: var(--white) !important;
+      padding: 10px 22px;
+      border-radius: 2px;
+      transition: background 0.2s !important;
+    }
+    .nav-cta:hover { background: #c93c15 !important; }
+
+    /* ── HERO ── */
+    #hero {
+      min-height: 100vh;
+      position: relative;
+      display: flex;
+      align-items: center;
+      padding: 100px 5vw 80px;
+      overflow: hidden;
+    }
+
+    .hero-bg {
+      position: absolute;
+      inset: 0;
+      background-image: url('img_hero.jpg');
+      background-size: cover;
+      background-position: center 60%;
+      filter: brightness(0.35);
+      z-index: 0;
+    }
+
+    .hero-overlay {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(105deg, rgba(17,17,17,0.85) 40%, rgba(17,17,17,0.3) 100%);
+      z-index: 1;
+    }
+
+    .hero-content {
+      position: relative;
+      z-index: 2;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 80px;
+      align-items: center;
+      width: 100%;
+    }
+
+    .hero-text {
+      opacity: 0;
+      transform: translateY(30px);
+      animation: fadeUp 0.8s ease forwards 0.2s;
+    }
+
+    .hero-tag {
+      display: inline-block;
+      font-family: 'Josefin Sans', sans-serif;
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--orange);
+      border: 1px solid var(--orange);
+      padding: 5px 14px;
+      border-radius: 2px;
+      margin-bottom: 28px;
+    }
+
+    .hero-title {
+      font-family: 'Josefin Sans', sans-serif;
+      font-size: clamp(52px, 7vw, 90px);
+      font-weight: 700;
+      line-height: 1.0;
+      color: var(--white);
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+      margin-bottom: 28px;
+    }
+    .hero-title span { color: var(--orange); }
+
+    .hero-sub {
+      font-size: 16px;
+      font-weight: 300;
+      color: rgba(255,255,255,0.65);
+      line-height: 1.75;
+      max-width: 440px;
+      margin-bottom: 44px;
+    }
+
+    .hero-buttons { display: flex; gap: 16px; flex-wrap: wrap; }
+
+    .btn-primary {
+      background: var(--orange);
+      color: var(--white);
+      text-decoration: none;
+      padding: 14px 32px;
+      font-family: 'Josefin Sans', sans-serif;
+      font-size: 12px;
+      font-weight: 700;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      border-radius: 2px;
+      transition: background 0.2s, transform 0.15s;
+      display: inline-block;
+    }
+    .btn-primary:hover { background: #c93c15; transform: translateY(-2px); }
+
+    .btn-secondary {
+      background: transparent;
+      color: rgba(255,255,255,0.75);
+      text-decoration: none;
+      padding: 14px 32px;
+      font-family: 'Josefin Sans', sans-serif;
+      font-size: 12px;
+      font-weight: 600;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      border: 1px solid rgba(255,255,255,0.25);
+      border-radius: 2px;
+      transition: border-color 0.2s, color 0.2s;
+      display: inline-block;
+    }
+    .btn-secondary:hover { border-color: rgba(255,255,255,0.7); color: var(--white); }
+
+    .hero-stats {
+      opacity: 0;
+      transform: translateY(30px);
+      animation: fadeUp 0.8s ease forwards 0.5s;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
+    }
+
+    .stat-card {
+      background: rgba(255,255,255,0.07);
+      border: 1px solid rgba(255,255,255,0.1);
+      border-radius: 4px;
+      padding: 28px 24px;
+      transition: border-color 0.3s, background 0.3s;
+    }
+    .stat-card:hover {
+      border-color: rgba(232,71,26,0.5);
+      background: rgba(232,71,26,0.08);
+    }
+
+    .stat-num {
+      font-family: 'Josefin Sans', sans-serif;
+      font-size: 44px;
+      font-weight: 700;
+      color: var(--orange);
+      line-height: 1;
+      margin-bottom: 6px;
+      letter-spacing: 0.02em;
+    }
+
+    .stat-label {
+      font-family: 'Josefin Sans', sans-serif;
+      font-size: 11px;
+      font-weight: 400;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.4);
+    }
+
+    /* ── STRIPE ── */
+    .stripe-divider {
+      height: 4px;
+      background: repeating-linear-gradient(90deg, var(--orange) 0, var(--orange) 24px, var(--black) 24px, var(--black) 28px);
+    }
+
+    /* ── SHARED ── */
+    .section-label {
+      font-family: 'Josefin Sans', sans-serif;
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: var(--orange);
+      margin-bottom: 14px;
+    }
+
+    .section-title {
+      font-family: 'Josefin Sans', sans-serif;
+      font-size: clamp(34px, 4.5vw, 54px);
+      font-weight: 700;
+      text-transform: uppercase;
+      line-height: 1.05;
+      letter-spacing: 0.04em;
+      color: var(--black);
+      margin-bottom: 20px;
+    }
+
+    .section-body {
+      font-size: 16px;
+      font-weight: 300;
+      line-height: 1.8;
+      color: var(--muted);
+      max-width: 520px;
+    }
+
+    /* ── SERVICES ── */
+    #services {
+      background: var(--light);
+      padding: 100px 5vw;
+    }
+
+    .services-header {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 60px;
+      align-items: end;
+      margin-bottom: 56px;
+    }
+
+    .services-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 3px;
+    }
+
+    .service-card {
+      position: relative;
+      overflow: hidden;
+      height: 560px;
+      cursor: default;
+    }
+
+    .service-img {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center;
+      transition: transform 0.6s ease, filter 0.6s ease;
+      filter: brightness(0.55);
+    }
+    .service-card:hover .service-img {
+      transform: scale(1.05);
+      filter: brightness(0.4);
+    }
+
+    /* Gradient overlay — stronger at bottom for text legibility */
+    .service-card::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(to top, rgba(0,0,0,0.92) 0%, rgba(0,0,0,0.5) 45%, rgba(0,0,0,0.1) 100%);
+      z-index: 1;
+      transition: background 0.4s;
+    }
+    .service-card:hover::before {
+      background: linear-gradient(to top, rgba(0,0,0,0.96) 0%, rgba(0,0,0,0.65) 50%, rgba(0,0,0,0.2) 100%);
+    }
+
+    .service-body {
+      position: absolute;
+      bottom: 0; left: 0; right: 0;
+      z-index: 2;
+      padding: 32px 32px 36px;
+      transform: translateY(0);
+      transition: transform 0.4s ease;
+    }
+
+    .service-name {
+      font-family: 'Josefin Sans', sans-serif;
+      font-size: 22px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: var(--white);
+      margin-bottom: 10px;
+    }
+
+    /* Orange underline accent on name */
+    .service-name::after {
+      content: '';
+      display: block;
+      width: 36px;
+      height: 2px;
+      background: var(--orange);
+      margin-top: 8px;
+      transition: width 0.3s ease;
+    }
+    .service-card:hover .service-name::after { width: 60px; }
+
+    .service-desc {
+      font-size: 13px;
+      font-weight: 300;
+      line-height: 1.7;
+      color: rgba(255,255,255,0.65);
+      margin-bottom: 16px;
+    }
+
+    .service-list { list-style: none; display: flex; flex-direction: column; gap: 6px; }
+
+    .service-list li {
+      font-size: 12px;
+      color: rgba(255,255,255,0.55);
+      padding-left: 16px;
+      position: relative;
+      transition: color 0.2s;
+    }
+    .service-card:hover .service-list li { color: rgba(255,255,255,0.75); }
+    .service-list li::before {
+      content: '—';
+      position: absolute;
+      left: 0;
+      color: var(--orange);
+      font-size: 10px;
+      top: 2px;
+    }
+
+    /* Bottom orange bar on hover */
+    .service-card::after {
+      content: '';
+      position: absolute;
+      bottom: 0; left: 0;
+      width: 100%; height: 3px;
+      background: var(--orange);
+      transform: scaleX(0);
+      transform-origin: left;
+      transition: transform 0.4s ease;
+      z-index: 3;
+    }
+    .service-card:hover::after { transform: scaleX(1); }
+
+    /* ── WHY US ── */
+    #why {
+      padding: 0;
+      position: relative;
+    }
+
+    .why-image-side {
+      position: relative;
+      overflow: hidden;
+      min-height: 700px;
+      display: flex;
+      align-items: flex-end;
+    }
+
+    .why-image-side img {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: 20% 60%;
+      filter: brightness(0.55);
+      transition: transform 0.6s ease, filter 0.6s ease;
+    }
+
+    .why-image-side:hover img {
+      transform: scale(1.03);
+      filter: brightness(0.45);
+    }
+
+    /* Dark gradient — stronger at bottom like service cards */
+    .why-image-side::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(to top, rgba(0,0,0,0.95) 0%, rgba(0,0,0,0.6) 40%, rgba(0,0,0,0.15) 100%);
+      z-index: 1;
+    }
+
+    .why-overlay-content {
+      position: relative;
+      z-index: 2;
+      width: 100%;
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr;
+      gap: 0 60px;
+      align-items: start;
+      padding: 60px 5vw 70px;
+    }
+
+    .why-overlay-content .section-label {
+      grid-column: 1 / -1;
+      margin-bottom: 8px;
+    }
+
+    .why-overlay-content .section-title {
+      grid-column: 1 / 2;
+      font-size: clamp(36px, 4vw, 56px);
+      line-height: 1;
+    }
+
+    .why-items {
+      grid-column: 2 / 4;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 0;
+    }
+
+    .why-item {
+      display: flex;
+      gap: 16px;
+      align-items: flex-start;
+      padding: 24px 24px 24px 0;
+      border-bottom: 1px solid rgba(255,255,255,0.08);
+    }
+    .why-item:nth-child(odd) { border-right: 1px solid rgba(255,255,255,0.08); padding-right: 24px; }
+    .why-item:nth-last-child(-n+2) { border-bottom: none; }
+
+    .why-num {
+      font-family: 'Josefin Sans', sans-serif;
+      font-size: 11px;
+      font-weight: 600;
+      color: var(--orange);
+      letter-spacing: 0.12em;
+      padding-top: 2px;
+      flex-shrink: 0;
+    }
+
+    .why-content h4 {
+      font-family: 'Josefin Sans', sans-serif;
+      font-size: 13px;
+      font-weight: 600;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--white);
+      margin-bottom: 5px;
+    }
+
+    .why-content p {
+      font-size: 13px;
+      font-weight: 300;
+      color: rgba(255,255,255,0.5);
+      line-height: 1.65;
+    }
+
+    /* ── CONTACT ── */
+    #contact {
+      background: var(--white);
+      padding: 100px 5vw;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 80px;
+      align-items: start;
+    }
+
+    .contact-details { display: flex; flex-direction: column; margin-top: 40px; }
+
+    .contact-item {
+      display: flex;
+      align-items: center;
+      gap: 18px;
+      padding: 22px 0;
+      border-bottom: 1px solid rgba(0,0,0,0.07);
+      text-decoration: none;
+      transition: opacity 0.2s;
+    }
+    .contact-item:hover { opacity: 0.65; }
+
+    .contact-icon {
+      width: 44px; height: 44px;
+      background: rgba(232,71,26,0.08);
+      border: 1px solid rgba(232,71,26,0.2);
+      border-radius: 2px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 18px;
+      flex-shrink: 0;
+    }
+
+    .contact-label {
+      font-family: 'Josefin Sans', sans-serif;
+      font-size: 10px;
+      font-weight: 600;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--orange);
+      margin-bottom: 3px;
+    }
+
+    .contact-value { font-size: 15px; font-weight: 400; color: var(--text); }
+
+    .contact-form-area {
+      background: var(--light);
+      border-radius: 4px;
+      padding: 44px 40px;
+    }
+
+    .form-title {
+      font-family: 'Josefin Sans', sans-serif;
+      font-size: 20px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: var(--black);
+      margin-bottom: 28px;
+    }
+
+    .form-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+      margin-bottom: 12px;
+    }
+
+    .form-field { display: flex; flex-direction: column; gap: 6px; margin-bottom: 12px; }
+
+    .form-field label {
+      font-family: 'Josefin Sans', sans-serif;
+      font-size: 10px;
+      font-weight: 600;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--muted);
+    }
+
+    .form-field input,
+    .form-field select,
+    .form-field textarea {
+      background: var(--white);
+      border: 1px solid rgba(0,0,0,0.12);
+      border-radius: 2px;
+      padding: 12px 16px;
+      font-size: 14px;
+      font-family: 'Barlow', sans-serif;
+      color: var(--text);
+      outline: none;
+      transition: border-color 0.2s;
+    }
+    .form-field input:focus,
+    .form-field select:focus,
+    .form-field textarea:focus { border-color: var(--orange); }
+
+    .form-field textarea { resize: vertical; min-height: 100px; }
+
+    .form-submit {
+      width: 100%;
+      background: var(--orange);
+      color: var(--white);
+      border: none;
+      padding: 15px 32px;
+      font-family: 'Josefin Sans', sans-serif;
+      font-size: 12px;
+      font-weight: 700;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      border-radius: 2px;
+      cursor: pointer;
+      transition: background 0.2s;
+      margin-top: 8px;
+    }
+    .form-submit:hover { background: #c93c15; }
+
+    /* ── FOOTER ── */
+    footer {
+      background: var(--black);
+      padding: 44px 5vw;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      border-top: 1px solid rgba(255,255,255,0.05);
+    }
+
+    .footer-logo img { height: 36px; }
+
+    .footer-text {
+      font-size: 12px;
+      color: rgba(255,255,255,0.25);
+      letter-spacing: 0.05em;
+    }
+
+    .footer-links { display: flex; gap: 28px; }
+
+    .footer-links a {
+      font-family: 'Josefin Sans', sans-serif;
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.3);
+      text-decoration: none;
+      transition: color 0.2s;
+    }
+    .footer-links a:hover { color: var(--orange); }
+
+    /* ── ANIMATIONS ── */
+    @keyframes fadeUp {
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .reveal {
+      opacity: 0;
+      transform: translateY(24px);
+      transition: opacity 0.7s ease, transform 0.7s ease;
+    }
+    .reveal.visible { opacity: 1; transform: translateY(0); }
+
+    /* ── MOBILE ── */
+    @media (max-width: 900px) {
+      .hero-content { grid-template-columns: 1fr; gap: 40px; }
+      .hero-stats { grid-template-columns: 1fr 1fr; }
+      .services-header { grid-template-columns: 1fr; gap: 20px; }
+      .services-grid { grid-template-columns: 1fr; }
+      #why { grid-template-columns: 1fr; }
+      .why-image-side { min-height: 320px; }
+      #contact { grid-template-columns: 1fr; }
+      .nav-links { display: none; }
+      footer { flex-direction: column; gap: 20px; text-align: center; }
+      .footer-links { flex-wrap: wrap; justify-content: center; }
+      .form-row { grid-template-columns: 1fr; }
+      .why-text-side { padding: 60px 32px; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- NAV -->
+  <nav>
+    <div class="nav-logo">
+      <span class="nav-logo-text">DYNAMICA <span>ELECTRICAL</span></span>
+    </div>
+    <ul class="nav-links">
+      <li><a href="#services">Services</a></li>
+      <li><a href="#why">About</a></li>
+      <li><a href="#contact" class="nav-cta">Get a Quote</a></li>
+    </ul>
+  </nav>
+
+  <!-- HERO -->
+  <section id="hero">
+    <div class="hero-bg"></div>
+    <div class="hero-overlay"></div>
+    <div class="hero-content">
+      <div class="hero-text">
+        <div class="hero-tag">Powering Excellence</div>
+        <h1 class="hero-title">Power.<br><span>Built</span><br>Right.</h1>
+        <p class="hero-sub">Residential, commercial and service electrical work across Melbourne. Quality craftsmanship, on time, every time.</p>
+        <div class="hero-buttons">
+          <a href="#contact" class="btn-primary">Get a Free Quote</a>
+          <a href="#services" class="btn-secondary">Our Services</a>
+        </div>
+      </div>
+      <div class="hero-stats">
+        <div class="stat-card">
+          <div class="stat-num">15+</div>
+          <div class="stat-label">Years Experience</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-num">500+</div>
+          <div class="stat-label">Projects Completed</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-num">100%</div>
+          <div class="stat-label">Licensed & Insured</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-num">VIC</div>
+          <div class="stat-label">All Melbourne</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="stripe-divider"></div>
+
+  <!-- SERVICES -->
+  <section id="services">
+    <div class="services-header reveal">
+      <div>
+        <div class="section-label">What We Do</div>
+        <h2 class="section-title">Our<br>Services</h2>
+      </div>
+      <p class="section-body">From new builds to switchboard upgrades and everything in between — we handle all phases of electrical work with precision and care.</p>
+    </div>
+    <div class="services-grid">
+
+      <div class="service-card reveal">
+        <img class="service-img" src="img_residential.jpg" alt="Residential electrical rough-in"/>
+        <div class="service-body">
+          <div class="service-name">Residential</div>
+          <p class="service-desc">Complete electrical solutions for new homes and renovations.</p>
+          <ul class="service-list">
+            <li>New home rough-in & fit-off</li>
+            <li>Renovations & extensions</li>
+            <li>Switchboard upgrades</li>
+            <li>Safety switches & smoke alarms</li>
+            <li>EV charger installation</li>
+            <li>Lighting design & install</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="service-card reveal">
+        <img class="service-img" src="img_commercial.jpg" alt="Commercial construction site"/>
+        <div class="service-body">
+          <div class="service-name">Commercial</div>
+          <p class="service-desc">Electrical fit-outs and construction for commercial builds.</p>
+          <ul class="service-list">
+            <li>Office & retail fit-outs</li>
+            <li>Warehouse & industrial</li>
+            <li>Data & communications</li>
+            <li>Emergency & exit lighting</li>
+            <li>Three-phase power</li>
+            <li>Compliance testing</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="service-card reveal">
+        <img class="service-img" src="img_switchboard.jpg" alt="Switchboard installation"/>
+        <div class="service-body">
+          <div class="service-name">General Service</div>
+          <p class="service-desc">Prompt, reliable service work for homes and businesses.</p>
+          <ul class="service-list">
+            <li>Fault finding & repairs</li>
+            <li>Power point & light additions</li>
+            <li>Appliance connections</li>
+            <li>Switchboard repairs</li>
+            <li>Ceiling fans & air-con wiring</li>
+            <li>Compliance certificates</li>
+          </ul>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- WHY US -->
+  <section id="why">
+    <div class="why-image-side">
+      <img src="img_team.jpg" alt="Dynamica Electrical team on site"/>
+      <!-- Overlay text panel -->
+      <div class="why-overlay-content">
+        <div class="section-label" style="color:var(--orange);">Why Choose Us</div>
+        <h2 class="section-title" style="color:var(--white);margin-bottom:40px;">Electrical<br>Done<br>Properly.</h2>
+        <div class="why-items">
+          <div class="why-item">
+            <div class="why-num">01</div>
+            <div class="why-content">
+              <h4>Fully Licensed & Insured</h4>
+              <p>All work by licensed electricians with full public liability insurance. Your property is protected.</p>
+            </div>
+          </div>
+          <div class="why-item">
+            <div class="why-num">02</div>
+            <div class="why-content">
+              <h4>Clean, Quality Workmanship</h4>
+              <p>We take pride in tidy, well-finished work. No shortcuts — every job done to Australian standards.</p>
+            </div>
+          </div>
+          <div class="why-item">
+            <div class="why-num">03</div>
+            <div class="why-content">
+              <h4>On Time, On Budget</h4>
+              <p>We show up when we say we will. Transparent quoting with no surprises.</p>
+            </div>
+          </div>
+          <div class="why-item">
+            <div class="why-num">04</div>
+            <div class="why-content">
+              <h4>Melbourne-Based & Local</h4>
+              <p>We work across all Melbourne suburbs — fast response times for service work.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="stripe-divider"></div>
+
+  <!-- CONTACT -->
+  <section id="contact">
+    <div class="reveal">
+      <div class="section-label">Contact Us</div>
+      <h2 class="section-title">Let's Talk<br>About Your<br>Project.</h2>
+      <p class="section-body">Ready to get started or just want a quote? Get in touch — we respond quickly.</p>
+      <div class="contact-details">
+        <a href="tel:+61430111350" class="contact-item">
+          <div class="contact-icon">📞</div>
+          <div>
+            <div class="contact-label">Phone</div>
+            <div class="contact-value">+61 430 111 350</div>
+          </div>
+        </a>
+        <a href="mailto:hello@dynamicaelectrical.com.au" class="contact-item">
+          <div class="contact-icon">✉️</div>
+          <div>
+            <div class="contact-label">Email</div>
+            <div class="contact-value">hello@dynamicaelectrical.com.au</div>
+          </div>
+        </a>
+        <div class="contact-item">
+          <div class="contact-icon">📍</div>
+          <div>
+            <div class="contact-label">Location</div>
+            <div class="contact-value">Melbourne, Victoria</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="contact-form-area reveal">
+      <div class="form-title">Request a Quote</div>
+      <div class="form-row">
+        <div class="form-field">
+          <label>First Name</label>
+          <input type="text" placeholder="John" id="fname"/>
+        </div>
+        <div class="form-field">
+          <label>Last Name</label>
+          <input type="text" placeholder="Smith" id="lname"/>
+        </div>
+      </div>
+      <div class="form-row">
+        <div class="form-field">
+          <label>Phone</label>
+          <input type="tel" placeholder="04xx xxx xxx" id="phone"/>
+        </div>
+        <div class="form-field">
+          <label>Email</label>
+          <input type="email" placeholder="you@email.com" id="email"/>
+        </div>
+      </div>
+      <div class="form-field">
+        <label>Service Type</label>
+        <select id="service">
+          <option value="">Select a service...</option>
+          <option>Residential Construction</option>
+          <option>Commercial Construction</option>
+          <option>General Service Work</option>
+          <option>Switchboard Upgrade</option>
+          <option>Other</option>
+        </select>
+      </div>
+      <div class="form-field">
+        <label>Tell us about your project</label>
+        <textarea id="message" placeholder="Brief description of what you need..."></textarea>
+      </div>
+      <button class="form-submit" onclick="submitForm()">Send Enquiry →</button>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer>
+    <div class="footer-logo">
+      <span style="font-family:'Josefin Sans',sans-serif;font-weight:700;font-size:16px;letter-spacing:0.12em;color:#fff;">DYNAMICA <span style="color:#E8471A;">ELECTRICAL</span></span>
+    </div>
+    <div class="footer-text">© 2025 Dynamica Electrical. All rights reserved. Melbourne, VIC.</div>
+    <div class="footer-links">
+      <a href="#services">Services</a>
+      <a href="#why">About</a>
+      <a href="#contact">Contact</a>
+    </div>
+  </footer>
+
+  <script>
+    // Scroll reveal
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach((e, i) => {
+        if (e.isIntersecting) {
+          setTimeout(() => e.target.classList.add('visible'), i * 100);
+        }
+      });
+    }, { threshold: 0.1 });
+    document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+
+    // Form submission via mailto
+    function submitForm() {
+      const fname = document.getElementById('fname').value;
+      const lname = document.getElementById('lname').value;
+      const phone = document.getElementById('phone').value;
+      const email = document.getElementById('email').value;
+      const service = document.getElementById('service').value;
+      const message = document.getElementById('message').value;
+      const subject = encodeURIComponent('Website Enquiry – ' + (service || 'General'));
+      const body = encodeURIComponent(
+        'Name: ' + fname + ' ' + lname +
+        '\nPhone: ' + phone +
+        '\nEmail: ' + email +
+        '\nService: ' + service +
+        '\n\nMessage:\n' + message
+      );
+      window.location.href = 'mailto:stefan@dynamicaelectrical.com.au?subject=' + subject + '&body=' + body;
+    }
+
+    // Smooth scroll
+    document.querySelectorAll('a[href^="#"]').forEach(a => {
+      a.addEventListener('click', e => {
+        e.preventDefault();
+        document.querySelector(a.getAttribute('href'))?.scrollIntoView({ behavior: 'smooth' });
+      });
+    });
+  </script>
+
+</body>
+</html>
